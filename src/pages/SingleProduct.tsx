@@ -1,5 +1,5 @@
 const SingleProduct = () => {
-  return <div>SingleProduct</div>;
+  return <div className="max-w-6xl mx-auto p-2">SingleProduct</div>;
 };
 
 export default SingleProduct;
