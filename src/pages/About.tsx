@@ -1,7 +1,7 @@
 const About = () => {
   return (
     <>
-      <div className="flex flex-wrap gap-2 sm:gap-x-6 items-center justify-center">
+      <div className="flex flex-wrap gap-2 sm:gap-x-6 items-center justify-center max-w-6xl mx-auto p-2">
         {/* product description */}
         <h1 className="text-4xl font-bold leading-none tracking-tight sm:text-6xl ">
           We love
