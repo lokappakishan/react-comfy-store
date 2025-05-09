@@ -5,12 +5,13 @@ interface FormRangeProps {
   label: string;
   name: string;
   size: string;
+  price: string;
 }
 
-const FormRange: FC<FormRangeProps> = ({ label, name, size }) => {
+const FormRange: FC<FormRangeProps> = ({ label, name, size, price }) => {
   const step = 1000;
   const maxPrice = 100000;
-  const [selectedPrice, setSelectedPrice] = useState(maxPrice);
+  const [selectedPrice, setSelectedPrice] = useState(Number(price) || maxPrice);
 
   return (
     <div>
