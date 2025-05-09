@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import SectionTitle from './SectionTitle';
-import ProductGrid from './ProductGrid';
+import ProductGrid from './ProductsGrid';
 
 const FeaturedProducts: FC = () => {
   return (
