@@ -1,13 +1,4 @@
-import { axiosInstance } from '../api';
 import { FeaturedProducts, Hero } from '../components';
-
-const URL = `/products?featured=true`;
-
-export const loader = async () => {
-  const response = await axiosInstance(URL);
-  const products = response.data.data;
-  return { products };
-};
 
 const Landing = () => {
   return (
