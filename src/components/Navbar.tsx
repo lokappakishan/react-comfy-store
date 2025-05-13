@@ -1,36 +1,21 @@
+import { FC } from 'react';
 import { BsCart3, BsMoonFill, BsSunFill } from 'react-icons/bs';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { toggleTheme } from '../features/user/userSlice';
 import NavLinks from './NavLinks';
-import { FC, useEffect, useState } from 'react';
-import { useAppSelector } from '../app/hooks';
-
-const themes = { dracula: 'dracula', winter: 'winter' } as const;
-type Theme = 'dracula' | 'winter';
-
-const getThemeFromLocalStorage = (): Theme => {
-  const storedTheme = localStorage.getItem('theme');
-  return storedTheme === 'winter' || storedTheme === 'dracula'
-    ? storedTheme
-    : themes.winter;
-};
 
 const Navbar: FC = () => {
-  const [theme, setTheme] = useState<Theme>(getThemeFromLocalStorage);
+  const dispatch = useAppDispatch();
+
   const numItemsInCart = useAppSelector(
     (state) => state.cartState.numItemsInCart
   );
 
-  const handleTheme = () => {
-    const { winter, dracula } = themes;
-    const newTheme = theme === winter ? dracula : winter;
-    setTheme(newTheme);
+  const handleToggleTheme = () => {
+    dispatch(toggleTheme());
   };
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   return (
     <nav className="bg-base-200">
@@ -66,7 +51,7 @@ const Navbar: FC = () => {
           <label className="swap">
             <input
               type="checkbox"
-              onClick={handleTheme}
+              onClick={handleToggleTheme}
               aria-label="Toggle theme"
             />
             <div className="swap-on h-4 w-4">

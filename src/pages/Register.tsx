@@ -1,5 +1,30 @@
-import { Form, Link } from 'react-router-dom';
+import { Form, Link, LoaderFunctionArgs, redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { axiosInstance } from '../api/axios';
 import { FormInput, SubmitBtn } from '../components';
+
+export const action = async ({ request }: LoaderFunctionArgs) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    const response = await axiosInstance.post('/auth/local/register', data);
+    console.log(response);
+    toast.success('account created successfully');
+    return redirect('/login');
+  } catch (err) {
+    if (typeof err === 'object' && err !== null && 'response' in err) {
+      const errorMessage =
+        // @ts-expect-error - we know this is safe for Axios-style error
+        err.response?.data?.error?.message ||
+        'Something went wrong. Please try again.';
+      toast.error(errorMessage);
+    } else {
+      toast.error('Something went wrong. Please try again.');
+    }
+    return null;
+  }
+};
 
 const Register = () => {
   return (
@@ -15,7 +40,6 @@ const Register = () => {
         <div className="mt-4">
           <SubmitBtn text="register" />
         </div>
-
         <p className="text-center">
           Already a member?
           <Link
