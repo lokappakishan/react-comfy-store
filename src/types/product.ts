@@ -17,3 +17,14 @@ export interface Product {
   id: number;
   attributes: ProductAttributes;
 }
+
+export type cartProduct = {
+  cartID: string;
+  productID: number;
+  image: string;
+  title: string;
+  price: string;
+  amount: number;
+  productColor: string;
+  company: string;
+};
