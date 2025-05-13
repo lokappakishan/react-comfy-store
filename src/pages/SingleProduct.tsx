@@ -1,26 +1,36 @@
-import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
-import { axiosInstance } from '../api';
-import { formatPrice, generateAmountOptions } from '../utils';
 import React, { useState } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
+import { useAppDispatch } from '../app/hooks';
+import { addItem } from '../features/cart/cartSlice';
 import { Product } from '../types/product';
-
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const { id } = params;
-  const response = await axiosInstance(`products/${id}`);
-  return response.data.data;
-};
+import { formatPrice, generateAmountOptions } from '../utils';
 
 const SingleProduct = () => {
   const product: Product = useLoaderData();
-  console.log(product);
   const { image, title, price, description, colors, company } =
     product.attributes;
   const dollarsAmount = formatPrice(price);
   const [productColor, setProductColor] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
+  const dispatch = useAppDispatch();
+
+  const cartProduct = {
+    cartID: product.id + productColor,
+    productID: product.id,
+    image,
+    title,
+    price,
+    amount,
+    productColor,
+    company,
+  };
 
   const handleAmount = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAmount(parseInt(e.target.value));
+  };
+
+  const addToCart = () => {
+    dispatch(addItem({ product: cartProduct }));
   };
 
   return (
@@ -92,10 +102,7 @@ const SingleProduct = () => {
           </div>
           {/* CART BUTTON */}
           <div className="mt-10 ">
-            <button
-              className="btn btn-secondary btn-md"
-              onClick={() => console.log('add to bag')}
-            >
+            <button className="btn btn-secondary btn-md" onClick={addToCart}>
               Add to bag
             </button>
           </div>

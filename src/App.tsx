@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
+import { ErrorElement } from './components';
 import {
   About,
   Cart,
@@ -13,11 +14,10 @@ import {
   Register,
   SingleProduct,
 } from './pages';
-import { ErrorElement } from './components';
 
-import { loader as LandingLoader } from './pages/Landing';
-import { loader as SingleProductLoader } from './pages/SingleProduct';
-import { loader as ProductsLoader } from './pages/Products';
+import { landingLoader } from './loaders/landingLoader';
+import { singleProductLoader } from './loaders/singleProductLoader';
+import { productsLoader } from './loaders/productsLoader';
 
 const router = createBrowserRouter([
   {
@@ -29,19 +29,19 @@ const router = createBrowserRouter([
         index: true,
         element: <Landing />,
         errorElement: <ErrorElement />,
-        loader: LandingLoader,
+        loader: landingLoader,
       },
       {
         path: 'products',
         element: <Products />,
         errorElement: <ErrorElement />,
-        loader: ProductsLoader,
+        loader: productsLoader,
       },
       {
         path: 'products/:id',
         element: <SingleProduct />,
         errorElement: <ErrorElement />,
-        loader: SingleProductLoader,
+        loader: singleProductLoader,
       },
       {
         path: 'cart',
