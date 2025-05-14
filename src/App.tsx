@@ -15,9 +15,17 @@ import {
   SingleProduct,
 } from './pages';
 
-import { landingLoader, productsLoader, singleProductLoader } from './loaders';
+import {
+  checkoutLoader,
+  landingLoader,
+  orderLoader,
+  productsLoader,
+  singleProductLoader,
+} from './loaders';
 import { action as registerAction } from './pages/Register';
 import { action as loginAction } from './pages/Login';
+import { action as checkoutAction } from './components/CheckoutForm';
+
 import { store } from './app/store';
 
 const router = createBrowserRouter([
@@ -52,10 +60,13 @@ const router = createBrowserRouter([
       {
         path: 'checkout',
         element: <Checkout />,
+        loader: checkoutLoader(store),
+        action: checkoutAction(store),
       },
       {
         path: 'orders',
         element: <Orders />,
+        loader: orderLoader(store),
       },
     ],
   },

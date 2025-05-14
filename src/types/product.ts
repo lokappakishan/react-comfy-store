@@ -28,3 +28,22 @@ export type cartProduct = {
   productColor: string;
   company: string;
 };
+
+export interface OrderAttributes {
+  address: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  name: string;
+  orderTotal: string;
+  cartItems: cartProduct[];
+  numItemsInCart: number;
+}
+
+export interface Order {
+  id: number;
+  attributes: OrderAttributes;
+}
+
+// Final list type
+export type Orders = Order[];
